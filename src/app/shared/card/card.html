@@ -1,1 +1,89 @@
-<p>card works!</p>
+<div  class="p-6 relative min-w-72 min-h-108.75">
+
+  <!-- Close Button -->
+  <button (click)="close()" class="absolute top-5 text-xl font-bold cursor-pointer" [ngClass]="currentLang === 'en' ? 'right-7': 'left-7'">
+    <img src="assets/images/close.svg" alt="close icon"/>
+  </button>
+
+  <!-- Currency icon —  -->
+  <div class="flex mb-2 w-10 h-10" [ngClass]="currentLang === 'ar' ? 'ml-auto' : 'mr-auto'">
+    <img src="assets/images/reyal.svg" alt="currency" class="h-full w-full" />
+  </div>
+
+  <!-- Title -->
+  <h2 class="text-lg text-[#1F2A37] mb-2 font-semibold" [ngClass]="currentLang === 'ar' ? 'flex-start' : 'flex-end'" >مساهمة سريعة</h2>
+  <hr class="mb-1 border-0.5 text-[#D2D6DB]"/>
+  <!-- Loading / Error states -->
+  @if (isLoading()) {
+    <p class="text-center text-sm text-gray-400 mb-3">جاري التحميل...</p>
+  }
+  @if (loadError()) {
+    <p class="text-center text-sm text-red-500 mb-3">{{ loadError() }}</p>
+  }
+
+  <!-- Amount label -->
+  <p class="text-sm font-semibold text-[#161616] mb-1">اختر البلغ</p>
+
+  <!-- Preset amount buttons -->
+  <div class="flex gap-2 mb-3">
+    @for (item of donationAmount(); track item.id) {
+      <button
+        type="button"
+        (click)="selectAmount(item.amount)"
+        [class.border-green-700]="selectedAmount === item.amount"
+        [class.border-gray-300]="selectedAmount !== item.amount"
+        class="flex-1 border-2 rounded-md py-2 text-sm font-medium flex items-center justify-center gap-1 cursor-pointer transition-colors">
+        <span class="text-green-700">
+          <img src="assets/images/reyal.svg" alt="currency" class="h-full w-full" [attr.dir]="currentLang === 'ar' ? 'rtl' : 'ltr'"/>
+        </span>
+        <span>{{ item.amount }}</span>
+      </button>
+    }
+  </div>
+
+  <!-- Custom amount input -->
+  <div class="flex items-center border border-gray-300 rounded-md px-3 py-2 mb-4">
+    <span class="text-green-700 ml-2">
+      <img src="assets/images/reyal.svg" alt="currency" class="h-full w-full" [ngClass]="currentLang === 'en' ? 'right-7': 'left-7'"/>
+    </span>
+    <input
+      type="number"
+      placeholder="مبلغ آخر"
+      [(ngModel)]="customAmount"
+      (input)="onCustomAmountInput()"
+      class="flex-1 outline-none text-right bg-transparent text-sm"
+    />
+  </div>
+
+  <!-- Charity logo -->
+  <div class="flex justify-center mb-3">
+    <img src="assets/images/slogan.svg" alt="عطاءنا وقف لا يفنى" class="h-14 object-contain" />
+  </div>
+
+  <!-- Payment logos -->
+  <div class="flex justify-center items-center gap-3 mb-5">
+    <img src="assets/images/mada.svg" alt="mada" class="h-5" />
+    <img src="assets/images/visa.svg" alt="VISA" class="h-5" />
+    <img src="assets/images/mastercard.svg" alt="Mastercard" class="h-5" />
+    <img src="assets/images/applePay.svg" alt="Apple Pay" class="h-5" />
+  </div>
+
+  <!-- CTA Button -->
+  <button
+    type="button"
+    (click)="submit()"
+    [disabled]="!getFinalAmount()"
+    class="w-full bg-green-700 text-white py-3 rounded-lg font-bold text-base hover:bg-green-800 disabled:opacity-50 transition-colors cursor-pointer">
+    ساهم الآن
+  </button>
+
+  <!-- Terms line -->
+  <div class="flex w-full items-center gap-1 mt-3 text-xs text-gray-500" [attr.dir]="currentLang === 'ar' ? 'rtl' : 'ltr'">
+    <span class="text-green-600 text-base">
+      <img src="assets/images/checkmark.svg" alt="" />
+    </span>
+    <span>بإتمام المساهمة ، فأنت توافق على</span>
+    <a href="#" class="text-green-700 underline">الشروط والأحكام</a>
+  </div>
+
+</div>

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
+import { Card } from '../../shared/card/card';
 
 @Component({
-  imports: [],
+  imports: [Card],
   selector: 'app-quick-payment',
   styleUrl: './quick-payment.css',
   templateUrl: './quick-payment.html',
