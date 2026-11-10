@@ -1,5 +1,5 @@
 export const environment = {
-    baseUrl: 'https://waqfiyapp-uat1.qudrah.com/',
+    baseUrl: 'http://qir-deviaas03:7086/api/v1',
     production: false
 
 };  
