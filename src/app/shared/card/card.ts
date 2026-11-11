@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { CardDialogService } from './dialogCard.service';
 import { LanuageService } from '../../services/translate.service';
 import { TranslateService } from '@ngx-translate/core';
+import { QuickPaymentService } from '../../features/quick-payment/quick-payment.service';
 
 @Component({
   imports: [CommonModule, FormsModule, MatIconModule, MatButtonModule],
@@ -18,6 +19,7 @@ export class Card implements OnInit {
   private cardSer = inject(CardDialogService);
   private dialogRef = inject(MatDialogRef<Card>);
   private languageSer = inject(LanuageService);
+  private quickPayment = inject(QuickPaymentService)
   donationAmount = this.cardSer.paymentAmounts;
   isLoading = this.cardSer.isLoading;
   loadError = this.cardSer.loadError;
@@ -45,6 +47,9 @@ export class Card implements OnInit {
   submit(): void {
     const amount = this.getFinalAmount();
     if (!amount) return;
+
+    // store the amount in shared service 
+    this.quickPayment.setDonation(amount)
     this.dialogRef.close({ amount });
   }
 

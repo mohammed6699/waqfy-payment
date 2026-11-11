@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Card } from '../../shared/card/card';
+import { QuickPaymentService } from './quick-payment.service';
 
 @Component({
   imports: [Card],
@@ -7,4 +8,9 @@ import { Card } from '../../shared/card/card';
   styleUrl: './quick-payment.css',
   templateUrl: './quick-payment.html',
 })
-export class QuickPayment {}
+export class QuickPayment {
+
+  private equickPaymnent = inject(QuickPaymentService);
+
+  amount = this.equickPaymnent.selectedDonation
+}
