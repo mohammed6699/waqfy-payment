@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
-import { QuickPayment, ResultPayment } from '../../Models/QuickPayment.model';
 import { MainService } from '../../services/Main.service';
+import { QuickDonationRequest, QuickPayment, ResultPayment } from '../../Models/QuickPayment.model';
 
 @Injectable({ providedIn: 'root' })
 export class CardDialogService {

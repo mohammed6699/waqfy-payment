@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { Card } from '../../shared/card/card';
 import { LanuageService } from '../../services/translate.service';
+import { Router } from '@angular/router';
 
 @Component({
   imports: [],
@@ -11,7 +12,7 @@ import { LanuageService } from '../../services/translate.service';
 })
 export class Home {
   private dialog = inject(MatDialog);
-
+  private router = inject(Router)
   openDonationDialog(): void {
     const ref = this.dialog.open(Card, {
     });
@@ -19,7 +20,7 @@ export class Home {
     ref.afterClosed().subscribe(result => {
       if (result?.amount) {
         console.log('Donation amount chosen:', result.amount);
-        // TODO: navigate to payment flow
+        this.router.navigate(['/home/quick-payment']);
       }
     });
   }

@@ -1,4 +1,75 @@
-<!-- value from the shared popup -->
+<section class="flex flex-col">
+    <div>
+        <h2>Payment Process</h2>
+    </div>
+    <div class="flex flex-row w-full gap-[16px]">
+        <!-- card 1 -->
+        <div
+            class="mr-20 mt-8 min-w-101.75 min-h-70.25 bg-white rounded-[14px] border border-[#E5E7EB] gap-4 py-6 px-10">
+            <div class="flex w-full flex-end" [ngClass]="currentLang === 'ar' ?'flex-end' : 'flex-start'">
+                <h3 class="font-semibold text-[18px] leading-7 text-[#1F2A37]">Payment options</h3>
+            </div>
+            <div class="" [ngClass]="currentLang === 'ar' ?'row-reversex-end' : 'row-start'">
+                <h2 class="font-semibold text-[14px] leading-7 text-[#9DA4AE] ">payment type</h2>
+            </div>
+            <div class="w-81.75 h-10 mt-2 mb-2">
+                <select class="w-full h-full px-2 bg-white border border-border-[#9DA4AE] rounded-[10px]">
+                    @if(platform.IOS){
+                    <option value="applypay" class="text[#9DA4AE]">apply pay</option>
+                    <option value="master card" class="text[#9DA4AE]">master card</option>
+                    }@else {
+                    <option value="master card" class="text[#9DA4AE]">master card</option>
+                    }
+                </select>
+            </div>
+            <div class="mb-4">
+                <button 
+                    type="button"
+                    (click)="showDataForm()"
+                    class="w-full py-4 px-6 rounded-lg border border-[#E5E7EB] text-center bg-white cursor-pointer hover:bg-gray-50" 
+                    [ngClass]="isCardBtnClicked === true ? 'hidden': ''"
+                    >
+                    enter your card data
+                </button>
+                <section [ngClass]="isCardBtnClicked === false ? 'hidden': ''" class="flex flex-col">
+                    <h1>here we will add the complete payment details form we will continue at home</h1>
+                    <div>
 
-<p>{{amount()}}</p>
-<app-card />
+                    </div>
+                </section>
+            </div>
+            <hr class="mb-1 border-0.5 text-[#D2D6DB]" />
+            <div class="flex items-center justify-between w-full gap-4">
+                <div class="flex items-center w-[50%] gap-1">
+                    <img src="assets/images/Button-Close.svg" alt="button close icon" />
+                    <p class="font-medium text-[12px] leading-[18px] text-[#384250]">All transactions are 100% safe</p>
+                </div>
+                <div class="flex gap-2  w-[50%]">
+                    <img src="assets/images/applePay.svg" alt="apple pay" />
+                    <img src="assets/images/mastercard.svg" alt="master card" />
+                    <img src="assets/images/visa.svg" alt="visa card" />
+                    <img src="assets/images/mada.svg" />
+                </div>
+            </div>
+        </div>
+        <!-- card 2   -->
+        <div class="ml-20 mt-8 w-full h-full bg-white rounded-[14px] border border-[#E5E7EB] gap-4 py-6 px-10">
+            <div class="flex w-full flex-end mb-4">
+                <h3 class="font-medium text-[18px] leading-7 text-[#384250]">Donation Summary</h3>
+            </div>
+            <hr class="mb-1 border-0.5 text-[#D2D6DB]" />
+            <div>
+                <div class="flex w-full justify-between flex-end mt-4 mb-4">
+                    <h3 class="font-medium text-[18px] leading-7 text-[#384250]">Quick contribution</h3>
+                    <p>{{amount()}}</p>
+                </div>
+                <hr class="mb-1 border-0.5 text-[#D2D6DB]" />
+            </div>
+            <div class="flex w-full justify-between flex-end mt-4">
+                <h1 class="font-semibold text-[16px] leading-7 text-[#1F2A37]">Summation</h1>
+                <p class="font-bold text-[16px] leading-7 text-[#1B8354]">{{amount()}}</p>
+            </div>
+        </div>
+
+    </div>
+</section>

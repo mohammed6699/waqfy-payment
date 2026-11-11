@@ -29,9 +29,9 @@
     @for (item of donationAmount(); track item.id) {
       <button
         type="button"
-        (click)="selectAmount(item.amount)"
-        [class.border-green-700]="selectedAmount === item.amount"
-        [class.border-gray-300]="selectedAmount !== item.amount"
+        (click)="selectAmount(item)"
+        [class.border-green-700]="selectedItem?.id === item.id"
+        [class.border-gray-300]="selectedItem?.id !== item.id"
         class="flex-1 border-2 rounded-md py-2 text-sm font-medium flex items-center justify-center gap-1 cursor-pointer transition-colors">
         <span class="text-green-700">
           <img src="assets/images/reyal.svg" alt="currency" class="h-full w-full" [attr.dir]="currentLang === 'ar' ? 'rtl' : 'ltr'"/>
@@ -72,10 +72,15 @@
   <button
     type="button"
     (click)="submit()"
-    [disabled]="!getFinalAmount()"
+    [disabled]="!getFinalAmount() || isSubmitting"
     class="w-full bg-green-700 text-white py-3 rounded-lg font-bold text-base hover:bg-green-800 disabled:opacity-50 transition-colors cursor-pointer">
-    ساهم الآن
+    {{ isSubmitting ? 'جاري الإرسال...' : 'ساهم الآن' }}
   </button>
+
+  <!-- Submit error -->
+  @if (submitError) {
+    <p class="text-center text-red-500 text-xs mt-2">{{ submitError }}</p>
+  }
 
   <!-- Terms line -->
   <div class="flex w-full items-center gap-1 mt-3 text-xs text-gray-500" [attr.dir]="currentLang === 'ar' ? 'rtl' : 'ltr'">
