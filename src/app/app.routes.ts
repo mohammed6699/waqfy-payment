@@ -8,17 +8,17 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: '',
+    path: 'home',
     component: MainLayout,
     children: [
       {
-        path: 'home',
+        path: '',
         loadComponent: () => import('./features/home/home').then((c) => c.Home),
       },
-      // {
-      //     path: 'quick-payment',
-      //     loadComponent: () => import('./features/quick-payment/quick-payment').then(c => c.QuickPayment)
-      // }
+      {
+        path: 'quick-payment',
+        loadComponent: () => import('./features/quick-payment/quick-payment').then(c => c.QuickPayment)
+      }
     ],
   },
 ];
