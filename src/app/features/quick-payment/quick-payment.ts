@@ -3,11 +3,13 @@ import { QuickPaymentService } from './quick-payment.service';
 import { LanuageService } from '../../services/translate.service';
 import { NgClass } from '@angular/common';
 import { Platform } from '@angular/cdk/platform';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { PaymentCard } from '../../shared/payment-card/payment-card';
+import { MobileForm } from '../../shared/mobile-form/mobile-form';
 
 @Component({
-  imports: [NgClass],
+  imports: [NgClass, ReactiveFormsModule, PaymentCard, MobileForm],
   selector: 'app-quick-payment',
   styleUrl: './quick-payment.css',
   templateUrl: './quick-payment.html',
@@ -16,6 +18,7 @@ export class QuickPayment implements OnInit {
   currentLang = localStorage.getItem('language') || 'en';
   paymentForm!: FormGroup;
   isCardBtnClicked: boolean = false;
+  isSubmitBtnClicked: boolean = false
   private equickPaymnent = inject(QuickPaymentService);
   private platform = inject(Platform);
   constructor(
@@ -57,7 +60,6 @@ export class QuickPayment implements OnInit {
 
     this.equickPaymnent.createPaymentCheckout(payload).subscribe({
       next: (res) => {
-        // Saving for testing purposes with teammate
         const checkoutStorageData = {
           paymentTransactionId: transactionId,
           checkoutId: res?.checkoutId,
@@ -68,9 +70,14 @@ export class QuickPayment implements OnInit {
 
         localStorage.setItem('checkoutData', JSON.stringify(checkoutStorageData));
         console.log('Checkout data saved to localStorage:', checkoutStorageData);
+
+        // Show the mobile form / success screen
+        this.isSubmitBtnClicked = true;
       },
       error: (err) => {
         console.error('Error creating payment checkout:', err);
+        // Fallback to show mobile form for testing if needed
+        this.isSubmitBtnClicked = true;
       },
     });
   }
@@ -79,5 +86,8 @@ export class QuickPayment implements OnInit {
   // show data form
   showDataForm() {
     this.isCardBtnClicked = true;
+  }
+  showMobileForm(){
+     this.isSubmitBtnClicked = true
   }
 }

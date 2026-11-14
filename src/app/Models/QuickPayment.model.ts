@@ -55,7 +55,16 @@ export interface PaymentDraftDetails {
 
 export interface PaymentCheckoutRequest {
   paymentTransactionId: string;
-  paymentMethod: number;
+  paymentMethod: PaymentMethod;
+}
+
+export enum PaymentMethod {
+  VISAMASTERMADA = 0,
+  VISA = 1,
+  MASTER = 2,
+  MADA = 3,
+  APPLEPAY = 4,
+  Manual = 5,
 }
 
 export interface PaymentTransactionResponse {

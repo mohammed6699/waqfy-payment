@@ -27,8 +27,8 @@ export class QuickPaymentService {
   }
 
   // payment draft
-  getPaymentDraft(transId: string, endpoint: string): Observable<PaymentDraftDetails> {
-    return this.httpService.get<PaymentDraftDetails>(`${endpoint}/${transId}`);
+  getPaymentDraft(transId: string): Observable<PaymentDraftDetails> {
+    return this.httpService.get<PaymentDraftDetails>(`GetPaymentDraft/${transId}`);
   }
 
   createQuickPaymentDraft(amount: number): Observable<PaymentDraftResult> {

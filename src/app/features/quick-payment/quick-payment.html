@@ -1,3 +1,4 @@
+@if (!isSubmitBtnClicked) {
 <section class="flex flex-col">
     <div>
         <h2>Payment Process</h2>
@@ -31,13 +32,105 @@
                     >
                     enter your card data
                 </button>
-                <section [ngClass]="isCardBtnClicked === false ? 'hidden': ''" class="flex flex-col">
-                    <h1>here we will add the complete payment details form we will continue at home</h1>
-                    <div>
+                
+                <section [ngClass]="isCardBtnClicked === false ? 'hidden': ''" class="flex flex-col mt-4">
+                    <form [formGroup]="paymentForm" (ngSubmit)="handleSubmitForm()" class="flex flex-col gap-4">
+                        <div class="text-start">
+                            <h2 class="font-bold text-[18px] text-[#1F2A37]">ادخل بيانات البطاقة</h2>
+                        </div>
 
-                    </div>
+                        <div class="flex flex-col gap-1 text-start">
+                            <label class="text-[14px] font-medium text-[#384250]">نوع البطاقة</label>
+                            <div class="relative">
+                                <select formControlName="cardType" class="w-full h-11 px-3 bg-white border border-[#D2D6DB] rounded-lg text-sm text-[#384250] appearance-none focus:outline-none focus:border-green-600">
+                                    <option [value]="0">اختر</option>
+                                    <option [value]="3">مدى (Mada)</option>
+                                    <option [value]="1">فيزا (Visa)</option>
+                                    <option [value]="2">ماستركارد (Mastercard)</option>
+                                </select>
+                                <span class="absolute inset-y-0 end-3 flex items-center pointer-events-none text-gray-500 text-xs">▼</span>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col gap-1 text-start">
+                            <label class="text-[14px] font-medium text-[#384250]">رقم البطاقة</label>
+                            <input 
+                                type="text" 
+                                formControlName="cardNumber"
+                                placeholder="رقم البطاقة"
+                                maxlength="16"
+                                class="w-full h-11 px-3 bg-white border border-[#D2D6DB] rounded-lg text-sm placeholder:text-[#9DA4AE] focus:outline-none focus:border-green-600" />
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3 text-start">
+                            <div class="flex flex-col gap-1">
+                                <label class="text-[14px] font-medium text-[#384250]">رمز التحقق</label>
+                                <input 
+                                    type="password" 
+                                    formControlName="cvv"
+                                    placeholder="CVV"
+                                    maxlength="4"
+                                    class="w-full h-11 px-3 bg-white border border-[#D2D6DB] rounded-lg text-sm placeholder:text-[#9DA4AE] focus:outline-none focus:border-green-600" />
+                            </div>
+                            <div class="flex flex-col gap-1">
+                                <label class="text-[14px] font-medium text-[#384250]">تاريخ إنتهاء البطاقة</label>
+                                <div class="flex gap-1">
+                                    <input 
+                                        type="text" 
+                                        formControlName="expireMonth"
+                                        placeholder="شهر"
+                                        maxlength="2"
+                                        class="w-1/2 h-11 px-2 text-center bg-white border border-[#D2D6DB] rounded-lg text-sm placeholder:text-[#9DA4AE] focus:outline-none focus:border-green-600" />
+                                    <input 
+                                        type="text" 
+                                        formControlName="expireYear"
+                                        placeholder="سنة"
+                                        maxlength="2"
+                                        class="w-1/2 h-11 px-2 text-center bg-white border border-[#D2D6DB] rounded-lg text-sm placeholder:text-[#9DA4AE] focus:outline-none focus:border-green-600" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col gap-1 text-start">
+                            <label class="text-[14px] font-medium text-[#384250]">اسم حامل البطاقة</label>
+                            <input 
+                                type="text" 
+                                formControlName="cardOwnerName"
+                                placeholder="اسم حامل البطاقة"
+                                class="w-full h-11 px-3 bg-white border border-[#D2D6DB] rounded-lg text-sm placeholder:text-[#9DA4AE] focus:outline-none focus:border-green-600" />
+                        </div>
+
+                        <hr class="border-[#E5E7EB] my-1" />
+
+                        <div class="flex items-center justify-between w-full text-xs text-[#384250]">
+                            <div class="flex items-center gap-1.5">
+                                <img src="assets/images/Button-Close.svg" alt="lock icon" class="w-4 h-4" />
+                                <span>جميع عمليات الدفع آمنة 100%</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <img src="assets/images/applePay.svg" alt="Apple Pay" class="h-4" />
+                                <img src="assets/images/mastercard.svg" alt="Mastercard" class="h-4" />
+                                <img src="assets/images/visa.svg" alt="Visa" class="h-4" />
+                                <img src="assets/images/mada.svg" alt="Mada" class="h-4" />
+                            </div>
+                        </div>
+
+                        <button 
+                            type="submit"
+                            (click)="showMobileForm()"
+                            class="w-full h-12 rounded-lg font-bold text-base transition-colors cursor-pointer bg-[#1B8354] hover:bg-[#146641] text-white">
+                        contiue donation
+                        </button>
+
+                        <div class="flex items-center justify-center gap-1 text-xs text-[#384250]">
+                            <span class="text-green-600 text-sm">✓</span>
+                            <span>بإتمام المساهمة ، فأنت توافق</span>
+                            <a href="#" class="text-[#1B8354] underline font-medium">الشروط والاحكام</a>
+                        </div>
+                    </form>
                 </section>
             </div>
+            @if (!isCardBtnClicked) {
             <hr class="mb-1 border-0.5 text-[#D2D6DB]" />
             <div class="flex items-center justify-between w-full gap-4">
                 <div class="flex items-center w-[50%] gap-1">
@@ -51,6 +144,7 @@
                     <img src="assets/images/mada.svg" />
                 </div>
             </div>
+            }
         </div>
         <!-- card 2   -->
         <div class="ml-20 mt-8 w-full h-full bg-white rounded-[14px] border border-[#E5E7EB] gap-4 py-6 px-10">
@@ -70,6 +164,13 @@
                 <p class="font-bold text-[16px] leading-7 text-[#1B8354]">{{amount()}}</p>
             </div>
         </div>
-
     </div>
 </section>
+} @else {
+    <!-- Replaces the complete page with mobile form screen -->
+    <section class="flex flex-col items-center justify-center w-full py-8">
+        <div class="w-full max-w-xl bg-white rounded-[14px] border border-[#E5E7EB] p-8">
+            <app-mobile-form />
+        </div>
+    </section>
+}
