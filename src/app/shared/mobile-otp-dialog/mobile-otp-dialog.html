@@ -1,0 +1,30 @@
+<div class="flex flex-col w-[360px] h-[292px] border rounded-2xl p-[16px] gap-[24px] bg-[#FFFFFF]">
+    <!-- icon on left -->
+    <div class="w-[56px] h-[56px] rounded-[50%] bg-[#F3FCF6]">
+        <img src="assets/images/shield.svg" alt="protected password icon" class="py-[14px] w-[28px] h-[28px]"/>
+    </div>
+    <div class="flex flex-col justify-start gap-[8px]">
+        <p class="font-bold text-[18px] leading-[28px] text-[#1F2A37]">Your OTP</p>
+        <p class="font-regular text-[16px] leading-[24px] text-[#1F2A37]">The oTP sent to your saved number</p>
+    </div>
+    <div class="flex gap-[8px]">
+       @for(o of otp.controls; track $index){
+        <input 
+            type="text" 
+            inputmode="numeric" 
+            maxlength="1" 
+            [formControl]="o" 
+            (input)="onInput($event, $index)"
+            class="w-[42px] h-[42px] rounded-[4px] flex items-center justify-center px-[16px] text-center text-xl bg-[#F3F4F6]"/>
+       }
+    </div>
+    <!-- buttons -->
+     <div class="flex w-full justify-end gap-[4px]">
+        <button class="w-[103px] min-h-[40px] rounded-[4px] border-[1px] border-[#D2D6DB] px-[16px] font-medium text-[16px] leading-[24px] text-[#161616]" (click)="resendOtp()">
+            resend
+        </button>
+        <button class="w-[94px] min-h-[40px] max-h-[40px] rounded-[4px] px-[16px] bg-[#1B8354] ont-medium text-[16px] leading-[24px] text-[#FFFFFF]" (click)="verifyOtp()">
+            Submit
+        </button>
+     </div>
+</div>

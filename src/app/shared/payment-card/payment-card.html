@@ -1,1 +1,38 @@
-<p>payment-card works!</p>
+<div class="w-full max-w-sm h-48 bg-gradient-to-tr from-[#1E293B] via-[#0F172A] to-[#1E293B] text-white rounded-2xl p-6 shadow-xl flex flex-col justify-between select-none border border-slate-700/50">
+  <div class="flex justify-between items-center">
+    <div class="w-11 h-8 rounded-md bg-gradient-to-br from-amber-200 via-amber-400 to-amber-600 border border-amber-300 shadow-sm flex items-center justify-center">
+      <div class="w-7 h-5 border border-amber-700/40 rounded-sm grid grid-cols-2 gap-0.5"></div>
+    </div>
+    <div class="flex items-center gap-2">
+      @if (cardBrand === 'visa') {
+        <img src="assets/images/visa.svg" alt="Visa" class="h-6 object-contain" />
+      } @else if (cardBrand === 'mastercard') {
+        <img src="assets/images/mastercard.svg" alt="Mastercard" class="h-6 object-contain" />
+      } @else {
+        <span class="text-xs font-semibold tracking-wider uppercase text-slate-400">
+          Mada / Card
+        </span>
+      }
+    </div>
+  </div>
+
+
+  <div class="text-xl font-mono tracking-widest text-center text-slate-100 py-1 drop-shadow-sm">
+    {{ getCardNumberDisplay() | cardNumber }}
+  </div>
+
+  <div class="flex justify-between items-end text-xs uppercase tracking-wider text-slate-300">
+    <div class="max-w-[190px]">
+      <span class="text-[9px] text-slate-400 block tracking-normal">CARD HOLDER</span>
+      <span class="font-medium text-white truncate block">
+        {{ getCardOwnerNameDisplay() }}
+      </span>
+    </div>
+    <div class="text-right">
+      <span class="text-[9px] text-slate-400 block tracking-normal">EXPIRES</span>
+      <span class="font-medium text-white font-mono">
+        {{ getExpireMonthDisplay() }}/{{ getExpireYearDisplay() }}
+      </span>
+    </div>
+  </div>
+</div>

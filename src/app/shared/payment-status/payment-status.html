@@ -1,0 +1,79 @@
+<section class="flex justify-between bg-[#F9FAFB]">
+    <div dir="rtl" class="flex w-[360px] flex-col items-center gap-4 rounded-2xl bg-white p-4">
+    
+        <!-- status icon (check / cancel / clock) -->
+        <span class="material-icons !text-5xl" [class]="config().iconClass">
+            {{ config().icon }}
+        </span>
+    
+        <!-- calligraphy logo -->
+        <img src="assets/images/calligraphy.svg" alt="عطائك وقف لا يفنى" class="h-14 object-contain" />
+    
+        <!-- title -->
+        <p class="text-center text-base text-[#4D5761]">{{ config().title }}</p>
+    
+        <!-- amount box -->
+        @if (amount()) {
+        <div class="flex w-full flex-col items-center gap-1 rounded-lg py-3" [class]="config().boxClass">
+            <span class="text-xs font-bold" [class]="config().iconClass">قيمة المساهمة</span>
+            <strong class="text-base text-[#1F2A37]">{{ amount() }} ر.س</strong>
+        </div>
+        }
+    
+        <!-- reference id + copy -->
+        @if (transactionId) {
+        <div class="flex w-full flex-col gap-1">
+            <div class="flex items-center justify-between">
+                <span class="text-sm font-bold text-[#1F2A37]">الرقم المرجعي للعملية</span>
+                <button type="button" (click)="copyId()" aria-label="نسخ الرقم المرجعي"
+                    class="text-[#1B8354] hover:text-[#126040]">
+                    <span class="material-icons !text-xl">content_copy</span>
+                </button>
+            </div>
+            <p dir="ltr" class="break-all text-end text-sm font-bold text-[#1F2A37]">
+                {{ transactionId }}
+            </p>
+        </div>
+        }
+    
+        <!-- rating -->
+        @if (config().showRating) {
+        <div class="flex w-full items-center justify-between">
+            <span class="inline-flex items-center gap-1 rounded bg-[#111827] px-2 py-1 text-xs text-white">
+                <span class="material-icons !text-sm">star_border</span>
+                تقييم المنتج
+            </span>
+            <app-shared-stars [(value)]="rating" />
+        </div>
+        }
+    
+        <!-- status note -->
+        <div class="flex w-full items-center gap-2 rounded-lg bg-[#F9FAFB] px-4 py-3 text-sm text-[#1F2A37]">
+            <span class="material-icons !text-xl" [class]="config().iconClass">{{ config().icon }}</span>
+            {{ config().message }}
+        </div>
+    
+        <hr class="w-full border-[#E5E7EB]" />
+    
+        <!-- primary button -->
+        <button type="button" (click)="onPrimaryAction()"
+            class="w-full rounded-lg bg-[#111827] py-3 text-sm font-medium text-white hover:bg-[#1F2A37]">
+            {{ config().primaryLabel }}
+        </button>
+    
+        <!-- receipt -->
+        @if (config().showReceipt) {
+        <div class="flex w-full items-center justify-between text-sm text-[#1F2A37]">
+            <span class="font-medium">ايصال التبرع</span>
+            <div class="flex gap-3">
+                <button type="button" aria-label="تحميل PDF">
+                    <span class="material-icons">picture_as_pdf</span>
+                </button>
+                <button type="button" aria-label="تحميل صورة">
+                    <span class="material-icons">image</span>
+                </button>
+            </div>
+        </div>
+        }
+    </div>
+</section>
